@@ -1,0 +1,7 @@
+const { getDefaultConfig } = require('expo/metro-config')
+
+const config = getDefaultConfig(__dirname)
+// the on-device model is bundled as an asset
+config.resolver.assetExts.push('tflite')
+
+module.exports = config

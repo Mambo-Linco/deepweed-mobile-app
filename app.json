@@ -1,0 +1,56 @@
+{
+  "expo": {
+    "name": "FieldGuide",
+    "slug": "deepweed-fieldguide",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1f4a3f"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.deepweed.fieldguide",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsLocalNetworking": true
+        }
+      }
+    },
+    "android": {
+      "package": "com.deepweed.fieldguide",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1f4a3f"
+      },
+      "permissions": [
+        "CAMERA"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "FieldGuide needs access to your photos so you can choose a weed picture to identify.",
+          "cameraPermission": "FieldGuide needs the camera so you can photograph a weed to identify."
+        }
+      ],
+      "expo-secure-store",
+      "react-native-fast-tflite",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "usesCleartextTraffic": true
+          }
+        }
+      ]
+    ]
+  }
+}
