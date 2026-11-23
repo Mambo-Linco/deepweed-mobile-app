@@ -8,11 +8,22 @@ const URL_KEY = 'deepweed.apiUrl'
 let baseUrl = ''
 let token = null
 
+// Which backend the app talks to, in order of priority:
+//   1. an address typed in Account -> Server settings (saved on the phone)
+//   2. EXPO_PUBLIC_API_URL (set when building)
+//   3. expo.extra.apiUrl in app.json  <- the normal place: your hosted backend
+//   4. while developing with Expo only: the computer that serves the app, port 5000
+// A built app never falls back to localhost.
+// const HOSTED_PLACEHOLDER = 'https://deepweed-backend.onrender.com' // fake: replace via app.json
+const HOSTED_PLACEHOLDER = 'http://localhost:3000' // fake: replace via app.json
 export function defaultBaseUrl() {
-  if (process.env.EXPO_PUBLIC_API_URL) return process.env.EXPO_PUBLIC_API_URL.replace(/\/$/, '')
-  // While developing, Expo knows the IP of the computer serving the bundle; the backend runs on that machine.
-  const host = Constants.expoConfig?.hostUri?.split(':')[0]
-  return host ? `http://${host}:5000` : 'http://localhost:5000'
+  const configured = (process.env.EXPO_PUBLIC_API_URL || Constants.expoConfig?.extra?.apiUrl || '').replace(/\/$/, '')
+  if (configured) return configured
+  if (__DEV__) {
+    const host = Constants.expoConfig?.hostUri?.split(':')[0]
+    if (host) return `http://${host}:5000`
+  }
+  return HOSTED_PLACEHOLDER
 }
 
 export async function initApi() {
@@ -78,6 +89,8 @@ export const api = {
   scans: (limit = 50, offset = 0) => request(`/api/scans?limit=${limit}&offset=${offset}`),
   deleteScan: (id) => request(`/api/scans/${id}`, { method: 'DELETE' }),
   sendFeedback: (b) => request('/api/feedback', { method: 'POST', body: b }),
+  // fire-and-forget: wakes a sleeping free-tier backend
+  wake: () => fetch(`${baseUrl}/api/predict/status`).catch(() => {}),
   myFeedback: () => request('/api/feedback/my'),
   feedbackInbox: (status) => request(`/api/feedback?limit=200${status ? `&status=${status}` : ''}`),
   feedbackSummary: () => request('/api/feedback/summary'),

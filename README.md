@@ -14,7 +14,7 @@ Same API as the web app: camera/gallery → `POST /api/predict` → top-3 specie
 4. Scan the QR code with Expo Go (Android) or the Camera app (iOS).
 
 ## Connecting to the backend
-- By default the app calls the computer that is serving Expo, on port **5000** (it reads the IP from Expo), so usually nothing needs configuring.
+- A built app calls the hosted backend set in `app.json` (`expo.extra.apiUrl`); it never falls back to localhost. While developing with `expo start`, and only if `extra.apiUrl` is empty, it uses the computer that serves Expo on port 5000. To test a local backend with a build, use `ALLOW_LOCAL_API=1 npm run build:release` and Server settings.
 - If it can't connect: open **Account → Server settings**, enter `http://<your computer's LAN IP>:5000`, and tap **Test connection**. A phone can't use `localhost`.
 - Allow Node/port 5000 through your computer's firewall.
 - You can also set `EXPO_PUBLIC_API_URL` (see `.env.example`).

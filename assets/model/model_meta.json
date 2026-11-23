@@ -1,8 +1,8 @@
 {
- "installed": false,
+ "installed": true,
  "input_size": 224,
  "preprocess": "rescale",
- "quantization": null,
+ "quantization": "float16",
  "classes": [
   "Amaranthus hybridus (Smooth pigweed  Bonongwe)",
   "Blackjack (Bidens pilosa  Tsine)",
@@ -36,5 +36,5 @@
   "Wild Okra (Corchorus spp.  Derere)",
   "Witchweed (Striga asiatica  Bise)"
  ],
- "created": null
+ "created": "2026-11-17T09:35:15+00:00"
 }

@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "FieldGuide",
+    "name": "DeepWeed",
     "slug": "deepweed-fieldguide",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -51,6 +51,10 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "apiUrl": "http://localhost:3000"
+      // "apiUrl": "https://deepweed-backend.onrender.com"
+    }
   }
 }

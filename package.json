@@ -5,12 +5,13 @@
   "private": true,
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "fix-deps": "expo install --fix",
-    "prebuild:android": "expo prebuild --platform android --clean",
-    "build:release": "expo run:android --variant release --device",
-    "test:logic": "node scripts/test-logic.mjs"
+    "prebuild:android": "npm run check:config && expo prebuild --platform android --clean",
+    "build:release": "npm run check:config && expo run:android --variant release --device",
+    "test:logic": "node scripts/test-logic.mjs",
+    "check:config": "node scripts/check-config.mjs"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "2.2.0",
@@ -18,6 +19,7 @@
     "@react-navigation/bottom-tabs": "^7.3.0",
     "@react-navigation/native": "^7.1.0",
     "@react-navigation/native-stack": "^7.3.0",
+    "babel-preset-expo": "~54.0.10",
     "expo": "~54.0.0",
     "expo-build-properties": "~1.0.9",
     "expo-constants": "~18.0.0",

@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Alert as RNAlert, Linking, View } from 'react-native'
 import * as ImagePicker from 'expo-image-picker'
 import { Alert, Button, Card, Eyebrow, H1, Lead, Muted, Screen } from '../components/UI'
 import { useIdentify } from '../lib/identify'
 import { useI18n } from '../lib/i18n'
+import { api } from '../lib/api'
 
 export default function Upload({ navigation }) {
   const { setPhoto } = useIdentify()
   const { t } = useI18n()
   const [error, setError] = useState('') // an i18n key
+  useEffect(() => { api.wake() }, []) // free hosting sleeps when idle; wake it early
   const tips = [['tip.lit', 'tip.litSub'], ['tip.whole', 'tip.wholeSub'], ['tip.detail', 'tip.detailSub']]
 
   function accept(result) {
